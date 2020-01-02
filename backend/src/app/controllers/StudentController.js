@@ -1,8 +1,12 @@
 import * as Yup from 'yup';
-import { Op } from 'sequelize';
 import Student from '../models/Student';
 
 class StudentController {
+  async index(req, res) {
+    const students = await Student.findAll();
+    return res.json(students);
+  }
+
   async store(req, res) {
     const schema = Yup.object().shape({
       name: Yup.string().required(),
@@ -74,7 +78,7 @@ class StudentController {
 
     if (email !== student.email) {
       const studentExists = await Student.findOne({
-        where: { email: { [Op.ne]: student.email } },
+        where: { email },
       });
 
       if (studentExists) {

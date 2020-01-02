@@ -3,6 +3,8 @@ import { Router } from 'express';
 import UserController from './app/controllers/UserController';
 import SessionController from './app/controllers/SessionController';
 import StudentController from './app/controllers/StudentController';
+import PlanController from './app/controllers/PlanController';
+import MembershipController from './app/controllers/MembershipController';
 
 import authMiddleware from './app/middlewares/auth';
 
@@ -15,7 +17,16 @@ routes.use(authMiddleware);
 
 routes.put('/users', UserController.update);
 
+routes.get('/students', StudentController.index);
 routes.post('/students', StudentController.store);
 routes.put('/students/:id', StudentController.update);
+
+routes.get('/plans', PlanController.index);
+routes.post('/plans', PlanController.store);
+routes.put('/plans/:id', PlanController.update);
+routes.delete('/plans/:id', PlanController.delete);
+
+routes.get('/membership', MembershipController.index);
+routes.post('/membership', MembershipController.store);
 
 export default routes;
